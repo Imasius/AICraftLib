@@ -1,0 +1,61 @@
+﻿
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "nimo.aic.grpc";
+option java_outer_classname = "AICraftProto";
+
+package aicraft;
+
+import "google/protobuf/empty.proto";
+
+service AICraft {
+    rpc SetName(SetNameRequest) returns (google.protobuf.Empty) {}
+    rpc SetId(SetIdRequest) returns (google.protobuf.Empty) {}
+
+    rpc GetItemStackInfo(GetItemStackInfoRequest) returns (GetItemStackInfoResponse) {}
+    rpc TransferItemStack(TransferItemStackRequest) returns (google.protobuf.Empty) {}
+}
+
+message SetNameRequest {
+    Position position = 1;
+    string name = 2;
+}
+
+message SetIdRequest {
+    Position position = 1;
+    Id id = 2;
+}
+
+message GetItemStackInfoRequest {
+    Id id = 1;
+    uint32 slot = 2;
+}
+
+message GetItemStackInfoResponse {
+    Result result = 1;
+}
+
+message TransferItemStackRequest {
+    Id fromId = 1;
+    uint32 fromSlot = 2;
+
+    Id toId = 3;
+    uint32 toSlot = 4;
+}
+
+message Id {
+    string group = 1;
+    string id = 2;
+}
+
+message Position {
+    sint32 x = 1;
+    sint32 y = 2;
+    sint32 z = 3;
+}
+
+message Result {
+    uint32 code = 1;
+}
+
